@@ -153,10 +153,9 @@ const Intro = () => {
                     </h2>
                 </div>
 
-                {/* Centered Video Block (Landscape aspect ratio, contains left & right curtains) */}
                 <div 
                     ref={videoContainerRef} 
-                    className="z-10 w-[36vw] aspect-[1.35] min-w-[320px] max-w-[540px] overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-black/5 mb-12 relative"
+                    className="z-10 w-[26vw] aspect-[1.35] min-w-[280px] max-w-[400px] overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-black/5 mb-12 relative"
                 >
                     {/* Left Curtain */}
                     <div 

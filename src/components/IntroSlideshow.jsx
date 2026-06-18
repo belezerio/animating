@@ -285,13 +285,15 @@ const IntroSlideshow = () => {
                             <div className="intro-portal-mask" style={{ clipPath: 'url(#portal-b-clip)' }}>
                                 <div ref={portalMediaRef} className="w-full h-full" style={{ transform: 'scale(1)' }}>
                                     <video 
-                                        src="/assets/hero.mp4" 
                                         autoPlay 
                                         loop 
                                         muted 
                                         playsInline 
+                                        poster="/assets/hero_bg.png"
                                         className="w-full h-full object-cover" 
-                                    />
+                                    >
+                                        <source src="/assets/hero.mp4" type="video/mp4" />
+                                    </video>
                                 </div>
                             </div>
 

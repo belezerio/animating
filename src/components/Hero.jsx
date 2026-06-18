@@ -83,15 +83,16 @@ const Hero = () => {
       ref={heroRef}
       className="relative h-screen w-full overflow-hidden bg-[#150c0e] text-[#f6f3ec] will-change-transform"
     >
-      {/* Background Video */}
       <video 
-        src="/assets/hero.mp4" 
         autoPlay 
         loop 
         muted 
         playsInline 
+        poster="/assets/hero_bg.png"
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      >
+        <source src="/assets/hero.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-t from-[#0b0608] via-[#0b0608]/30 to-[#0b0608]/60" />
 
       <div className="relative z-10 flex h-full flex-col justify-end px-12 sm:px-[6vw] lg:px-[8vw] pb-28 w-full">

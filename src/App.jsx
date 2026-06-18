@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Intro from './components/Intro';
+import SvgDraw from './components/SvgDraw';
 import ProjectList from './components/ProjectList';
 import NewsMarquee from './components/NewsMarquee';
 import Footer from './components/Footer';
@@ -62,6 +63,7 @@ function App() {
             <main>
                 <Hero />
                 <Intro />
+                <SvgDraw />
                 <ProjectList />
                 <NewsMarquee />
             </main>
