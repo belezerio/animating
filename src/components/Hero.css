@@ -1,0 +1,91 @@
+/* Ambient placeholder background — stands in for a video until you add one.
+   Animates background-position only, so it never fights with GSAP's
+   scroll-driven transforms on the same element. */
+.hero-bg-placeholder {
+  background-image:
+    radial-gradient(circle at 25% 20%, #3a2018, transparent 60%),
+    radial-gradient(circle at 80% 75%, #1c2a30, transparent 55%),
+    radial-gradient(circle at 50% 50%, #2a1a14, transparent 70%);
+  background-size: 180% 180%;
+  background-position: 0% 0%;
+  animation: ambient-drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift {
+  0% {
+    background-position: 10% 20%;
+  }
+
+  100% {
+    background-position: 70% 60%;
+  }
+}
+
+/* Focus-pull / chromatic reveal for each headline word.
+   --p runs from 1 (hidden/blurred) to 0 (sharp/settled). GSAP tweens this
+   custom property directly, everything else is pure calc() off of it. */
+.word-reveal {
+  display: inline-block;
+  --p: 1;
+  opacity: calc(1 - var(--p) * 0.92);
+  transform: translateY(calc(var(--p) * 22px)) scale(calc(1 + var(--p) * 0.05));
+  filter: blur(calc(var(--p) * 9px));
+  text-shadow:
+    calc(var(--p) * 7px) 0 0 rgba(255, 106, 53, calc(var(--p) * 0.55)),
+    calc(var(--p) * -7px) 0 0 rgba(94, 196, 255, calc(var(--p) * 0.55));
+}
+
+/* Scroll indicator */
+.mouse-icon {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid rgba(246, 243, 236, 0.6);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.wheel {
+  width: 3px;
+  height: 6px;
+  border-radius: 2px;
+  background: #c99a4b;
+  animation: wheel-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes wheel-bounce {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  60% {
+    transform: translateY(10px);
+    opacity: 0.2;
+  }
+
+  61% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-reveal {
+    transition: none;
+  }
+
+  .wheel {
+    animation: none;
+  }
+
+  .hero-bg-placeholder {
+    animation: none;
+  }
+}
