@@ -18,7 +18,7 @@
     
     --transition-premium: cubic-bezier(0.25, 1, 0.5, 1);
     
-    --project-item-height: 30vh;
+    --project-item-height: 18vh;
 }
 
 * {
@@ -484,7 +484,7 @@ section {
 
 /* Section 4: All Work List View */
 .project-list-scroll-sec {
-    height: 500vh; /* 5 items * 100vh */
+    height: 100vh;
     position: relative;
     background-color: var(--bg-light);
     color: var(--text-black);
@@ -649,7 +649,7 @@ section {
 
 .project-item-number {
     font-family: var(--font-heading);
-    font-size: 1.8vw;
+    font-size: 1.2vw;
     font-weight: 800;
     color: inherit;
     opacity: 0.6;
@@ -659,7 +659,7 @@ section {
 
 .project-item-name {
     font-family: var(--font-heading);
-    font-size: 8vw;
+    font-size: 5vw;
     font-weight: 900;
     letter-spacing: -0.03em;
     color: inherit;
@@ -667,15 +667,12 @@ section {
 
 .work-floating-center-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 25vw;
-    height: 60vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 2;
     pointer-events: none;
-    overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
 }
 
 .work-floating-image {
