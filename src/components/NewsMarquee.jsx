@@ -8,27 +8,27 @@ const newsItems = [
     {
         meta: "PRESS",
         title: "Why Dove is betting on hundreds of creators for the World Cup",
-        img: "image1.jpg"
+        img: "/assets/project_penfolds.png"
     },
     {
         meta: "PRESS",
         title: "Bulletproof sparks a new wave of coffee culture for L'OR Espresso",
-        img: "image2.jpg"
+        img: "/assets/intro_thumb.png"
     },
     {
         meta: "THINKING",
         title: "5 Moves for Middle East Business Leaders Navigating Uncertainty and Disruption",
-        img: "image3.jpg"
+        img: "/assets/ticker_bg.png"
     },
     {
         meta: "PRESS",
         title: "Bulletproof named design agency partner of the year in Northern Europe",
-        img: "image4.jpg"
+        img: "/assets/project_toblerone.png"
     },
     {
         meta: "THINKING",
         title: "Visualizing the future of category design under AI integrations",
-        img: "image5.jpg"
+        img: "/assets/project_tecate.png"
     }
 ];
 
@@ -36,54 +36,23 @@ const cities = ["LONDON", "NEW YORK", "SINGAPORE", "SYDNEY", "AMSTERDAM", "TOKYO
 
 const NewsMarquee = () => {
     const sectionRef = useRef(null);
-    const pinWrapperRef = useRef(null);
     const trackRef = useRef(null);
     const tickerRef = useRef(null);
-    const cardMediaRefs = useRef([]);
 
-    const setCardMediaRef = (el, idx) => { cardMediaRefs.current[idx] = el; };
+    const headerWords = ["ALWAYS", "MAKING", "HEADLINES", "ALWAYS", "MAKING"];
 
     useEffect(() => {
         const track = trackRef.current;
-        const cardMedias = cardMediaRefs.current;
 
         const ctx = gsap.context(() => {
+            // Endless smooth horizontal automatic rolling marquee for news cards track
             if (track) {
-                const maxScroll = track.scrollWidth - window.innerWidth;
-
-                // Horizontal pin scroll for News Cards
+                const totalWidth = track.scrollWidth;
                 gsap.to(track, {
-                    x: -maxScroll,
+                    x: -totalWidth / 2,
+                    duration: 35,
                     ease: 'none',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top top',
-                        end: () => `+=${maxScroll}`,
-                        pin: true,
-                        scrub: true,
-                        anticipatePin: 1
-                    }
-                });
-
-                // Inner card media parallax translations (bg shifts slightly in opposite direction)
-                cardMedias.forEach(media => {
-                    if (media) {
-                        const img = media.querySelector('.media-placeholder');
-                        gsap.fromTo(img,
-                            { xPercent: -10 },
-                            {
-                                xPercent: 10,
-                                ease: 'none',
-                                scrollTrigger: {
-                                    trigger: media,
-                                    containerAnimation: gsap.getById('news-horizontal-pin'), // or simple tracking
-                                    start: 'left right',
-                                    end: 'right left',
-                                    scrub: true
-                                }
-                            }
-                        );
-                    }
+                    repeat: -1
                 });
             }
 
@@ -106,18 +75,45 @@ const NewsMarquee = () => {
 
     return (
         <div ref={sectionRef}>
-            {/* Section 5: News horizontal scroll */}
+            {/* Section 5: News horizontal marquee */}
             <section className="news-sec">
-                <div ref={pinWrapperRef} className="news-pinned-wrapper">
-                    <div ref={trackRef} className="news-slider-track">
+                <div className="w-full overflow-hidden">
+                    <div ref={trackRef} className="news-slider-track flex flex-row w-max">
                         {newsItems.map((item, idx) => (
-                            <div key={idx} className="news-card-slide">
-                                <div 
-                                    ref={(el) => setCardMediaRef(el, idx)} 
-                                    className="news-card-media"
-                                >
-                                    <div className="media-placeholder" style={{ width: '120%', height: '100%', left: '-10%' }}>
-                                        <div className="media-placeholder-label">[{item.img}]</div>
+                            <div key={idx} className="news-card-slide flex-shrink-0">
+                                {headerWords[idx] && (
+                                    <h2 className="news-marquee-word font-heading font-black text-5xl md:text-[5.5vw] text-[#eae7e2] tracking-tight uppercase mb-8 select-none leading-none">
+                                        {headerWords[idx]}
+                                    </h2>
+                                )}
+                                <div className="news-card-media">
+                                    <div className="w-full h-full relative">
+                                        <img 
+                                            src={item.img} 
+                                            alt={item.title} 
+                                            className="w-full h-full object-cover" 
+                                        />
+                                    </div>
+                                </div>
+                                <span className="news-card-meta">{item.meta}</span>
+                                <h4 className="news-card-title">{item.title}</h4>
+                            </div>
+                        ))}
+                        {/* Duplicate the array items for continuous looping */}
+                        {newsItems.map((item, idx) => (
+                            <div key={`dup-${idx}`} className="news-card-slide flex-shrink-0">
+                                {headerWords[idx] && (
+                                    <h2 className="news-marquee-word font-heading font-black text-5xl md:text-[5.5vw] text-[#eae7e2] tracking-tight uppercase mb-8 select-none leading-none">
+                                        {headerWords[idx]}
+                                    </h2>
+                                )}
+                                <div className="news-card-media">
+                                    <div className="w-full h-full relative">
+                                        <img 
+                                            src={item.img} 
+                                            alt={item.title} 
+                                            className="w-full h-full object-cover" 
+                                        />
                                     </div>
                                 </div>
                                 <span className="news-card-meta">{item.meta}</span>

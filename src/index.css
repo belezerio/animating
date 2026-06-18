@@ -733,20 +733,10 @@ section {
 .news-sec {
     background-color: var(--bg-dark);
     padding: 8rem 0;
-    height: 120vh;
-}
-
-.news-pinned-wrapper {
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .news-slider-track {
     display: flex;
-    padding-left: 8vw;
     will-change: transform;
 }
 
@@ -761,7 +751,7 @@ section {
 
 .news-card-media {
     width: 100%;
-    height: 38vh;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
     margin-bottom: 2rem;
     position: relative;
