@@ -74,12 +74,12 @@ const SvgDraw = () => {
 
         const context = canvas.getContext('2d');
 
-        // Preload frame assets from the B frames folder (152 frames total, 1280x720 resolution)
-        const frameCount = 152;
+        // Preload frame assets from the B frames folder (240 frames total, 1280x720 resolution)
+        const frameCount = 240;
         const images = [];
         let loadedCount = 0;
 
-        const padZero = (num) => String(num).padStart(3, '0');
+        const padZero = (num) => String(num).padStart(4, '0');
 
         // Draw image with full-viewport 'cover' scaling (prevents letterboxing or stretching)
         const drawFrameImg = (img) => {
@@ -122,17 +122,17 @@ const SvgDraw = () => {
 
         // Draw initial static placeholder frame while caching images
         const initialImg = new Image();
-        initialImg.src = `/B frames/ezgif-frame-001.jpg`;
+        initialImg.src = `/B frames/frame_0001.png`;
         initialImg.onload = () => {
             if (images.length === 0 || !images[0]) {
                 drawFrameImg(initialImg);
             }
         };
 
-        // Cache all 152 frame assets in browser memory
+        // Cache all 240 frame assets in browser memory
         for (let i = 1; i <= frameCount; i++) {
             const img = new Image();
-            img.src = `/B frames/ezgif-frame-${padZero(i)}.jpg`;
+            img.src = `/B frames/frame_${padZero(i)}.png`;
             img.onload = () => {
                 loadedCount++;
                 if (loadedCount === frameCount) {
@@ -150,7 +150,7 @@ const SvgDraw = () => {
         // Initialize GSAP scroll reveal timelines
         const ctx = gsap.context(() => {
             // 1. Entry timeline - runs from when SvgDraw enters bottom until it reaches top of screen
-            // Fades background color and scrubs first 15 B frames immediately on scroll entry
+            // Fades background color and scrubs first B frames immediately on scroll entry
             const entryTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: wrapperRef.current,
@@ -168,10 +168,10 @@ const SvgDraw = () => {
                 0
             );
 
-            // Scrub B frames from 0 to 60 during scroll-in
+            // Scrub B frames from 0 to 90 during scroll-in
             const entryFrameObj = { frame: 0 };
             entryTl.to(entryFrameObj, {
-                frame: 60,
+                frame: 90,
                 snap: 'frame',
                 ease: 'none',
                 duration: 1.0,
@@ -183,7 +183,7 @@ const SvgDraw = () => {
             }, 0);
 
             // 2. Pinning timeline - pins SvgDraw at top top for 3 viewports total
-            // Scrubs B frames 15 to 40 slowly while pinned, then plays zoom out portal and reveals carousel
+            // Scrubs remaining B frames slowly while pinned, then plays zoom out portal and reveals carousel
             const pinTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -194,8 +194,8 @@ const SvgDraw = () => {
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
-                        // Activate carousel autoplay once B animation finishes and zoom reveal begins (at progress 0.5)
-                        if (self.progress >= 0.5) {
+                        // Activate carousel autoplay once B animation finishes and zoom reveal begins (at progress 0.43)
+                        if (self.progress >= 0.43) {
                             setCarouselVisible(true);
                         } else {
                             setCarouselVisible(false);
@@ -204,8 +204,8 @@ const SvgDraw = () => {
                 }
             });
 
-            // Continue B frame scrub from 60 to 151 during the first half of pinning (duration 1.5)
-            const pinFrameObj = { frame: 60 };
+            // Continue B frame scrub from 90 to 239 during the first half of pinning (duration 1.5)
+            const pinFrameObj = { frame: 90 };
             pinTl.to(pinFrameObj, {
                 frame: frameCount - 1,
                 snap: 'frame',
@@ -228,11 +228,11 @@ const SvgDraw = () => {
             }, 1.5);
 
             // Smoothly fade in and zoom the full-screen carousel wrapper
-            // Starts at timeline progress 1.7 (time 1.7 to 3.0 in the pinned sequence)
+            // Starts at timeline progress 1.3 (time 1.3 to 3.0 in the pinned sequence) to overlap smoothly with canvas
             pinTl.fromTo(carouselWrapperRef.current,
                 { opacity: 0, scale: 0.96, pointerEvents: 'none' },
-                { opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.out', duration: 1.3 },
-                1.7
+                { opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.out', duration: 1.7 },
+                1.3
             );
 
         }, wrapperRef);

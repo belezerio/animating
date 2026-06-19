@@ -126,7 +126,7 @@ const Intro = () => {
     const placeholderVideo = "https://assets.mixkit.co/videos/preview/mixkit-ink-in-water-4330-large.mp4";
 
     return (
-        <section ref={sectionRef} className="intro-sec relative w-full h-screen overflow-hidden flex flex-col justify-center items-center py-12 px-6 md:px-12 bg-[#eae7e2] text-[#08060d]">
+        <section ref={sectionRef} className="intro-sec relative w-full h-screen overflow-hidden flex flex-col justify-center items-center py-12 px-6 md:px-12 bg-[#B9B5AB] text-[#08060d]">
             <div ref={containerRef} className="max-w-[1200px] w-full flex flex-col items-center text-center">
                 
                 {/* Title Text Wrapper (Contains left & right curtains) */}
